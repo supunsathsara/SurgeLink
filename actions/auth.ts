@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import TurnstileVerify from "@/lib/TurnstileVerify";
 
 const SignUpSchema = z.object({
   email: z.string().email("Invalid email address").min(3, "Email is required"),
@@ -35,12 +36,17 @@ export const signUpAction = async (formData: FormData) => {
   const name = formData.get("name")?.toString();
   const phone = formData.get("phone")?.toString();
   const username = formData.get("username")?.toString();
+  const turnstileToken = formData.get("cf-turnstile-response")?.toString();
 
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
 
   if (!email || !password || !name || !phone || !username) {
     return encodedRedirect("error", "/register", "All fields are required");
+  }
+
+  if (!turnstileToken) {
+    return encodedRedirect("error", "/register", "Please complete the captcha");
   }
 
   try {
@@ -57,6 +63,12 @@ export const signUpAction = async (formData: FormData) => {
       "/register",
       (error as z.ZodError).errors[0].message
     );
+  }
+
+  const challenge = await TurnstileVerify(turnstileToken);
+
+  if (!challenge.success) {
+    return encodedRedirect("error", "/register", "Captcha verification failed");
   }
 
   const { error } = await supabase.auth.signUp({
@@ -87,7 +99,18 @@ export const signUpAction = async (formData: FormData) => {
 export const signInAction = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const turnstileToken = formData.get("cf-turnstile-response")?.toString();
   const supabase = await createClient();
+
+  if (!turnstileToken) {
+    return encodedRedirect("error", "/login", "Please complete the captcha");
+  }
+
+  const challenge = await TurnstileVerify(turnstileToken);
+
+  if (!challenge.success) {
+    return encodedRedirect("error", "/login", "Captcha verification failed");
+  }
 
   const { error } = await supabase.auth.signInWithPassword({
     email,
@@ -98,7 +121,7 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/login", error.message);
   }
 
-  return redirect("/protected");
+  return redirect("/feed");
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {
@@ -106,9 +129,26 @@ export const forgotPasswordAction = async (formData: FormData) => {
   const supabase = await createClient();
   const origin = (await headers()).get("origin");
   const callbackUrl = formData.get("callbackUrl")?.toString();
+  const turnstileToken = formData.get("cf-turnstile-response")?.toString();
 
   if (!email) {
     return encodedRedirect("error", "/forgot-password", "Email is required");
+  }
+
+  if (!turnstileToken) {
+    return encodedRedirect("error", "/login", "Please complete the captcha");
+  }
+
+  const challenge = await TurnstileVerify(turnstileToken);
+
+  console.log(challenge);
+
+  if (!challenge.success) {
+    return encodedRedirect(
+      "error",
+      "/forgot-password",
+      "Captcha verification failed"
+    );
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -150,11 +190,7 @@ export const resetPasswordAction = async (formData: FormData) => {
   }
 
   if (password !== confirmPassword) {
-    encodedRedirect(
-      "error",
-      "/reset-password",
-      "Passwords do not match"
-    );
+    encodedRedirect("error", "/reset-password", "Passwords do not match");
   }
 
   try {
@@ -175,14 +211,10 @@ export const resetPasswordAction = async (formData: FormData) => {
   });
 
   if (error) {
-    encodedRedirect(
-      "error",
-      "/protected/reset-password",
-      "Password update failed"
-    );
+    encodedRedirect("error", "/reset-password", "Password update failed");
   }
 
-  encodedRedirect("success", "/protected/reset-password", "Password updated");
+  encodedRedirect("success", "/reset-password", "Password updated");
 };
 
 export const signOutAction = async () => {

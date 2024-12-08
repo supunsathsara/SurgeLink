@@ -1,15 +1,22 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
 import { signInAction } from "@/actions/auth";
 import SubmitButton from "@/components/SubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Message } from "@/components/form-message";
+import { useSearchParams } from "next/navigation";
+import { Turnstile } from "@marsidev/react-turnstile";
+import { useRef, useState } from "react";
 
-export default async function LoginPage(props: {
-  searchParams: Promise<Message>;
-}) {
-  const searchParams = await props.searchParams;
+export default function LoginPage() {
+  const searchParams = useSearchParams();
+  const message = searchParams.get("message");
+  const error = searchParams.get("error");
+
+  const [status, setStatus] = useState("");
+  const captchaRef = useRef(null);
 
   return (
     <div className="mx-auto grid w-[350px] gap-6">
@@ -20,15 +27,15 @@ export default async function LoginPage(props: {
         </p>
       </div>
       <form action={signInAction}>
-        {searchParams.message && (
+        {message && (
           <div className="bg-green-200/80 mb-4 text-green-800 p-2 rounded">
-            {searchParams.message}
+            {message}
           </div>
         )}
 
-        {searchParams.error && (
+        {error && (
           <div className="bg-red-100 mb-4 text-red-800 p-2 rounded">
-            {searchParams.error.split(", ").map((err, index) => (
+            {error.split(", ").map((err, index) => (
               <div key={index}>{err}</div>
             ))}
           </div>
@@ -57,7 +64,20 @@ export default async function LoginPage(props: {
             </div>
             <Input id="password" name="password" type="password" required />
           </div>
-          <SubmitButton pendingText="Logging in" className="w-full">
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            ref={captchaRef}
+            className="mb-6"
+            options={{
+              theme: "dark",
+            }}
+            onError={() => setStatus("error")}
+            onExpire={() => setStatus("expired")}
+            onSuccess={() => setStatus("solved")}
+          />
+          <SubmitButton pendingText="Logging in" className="w-full"
+          disabled={status !== "solved"}
+          >
             Login
           </SubmitButton>
         </div>

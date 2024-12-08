@@ -4,10 +4,11 @@ import { checkUsernameAvailability, signUpAction } from "@/actions/auth";
 import SubmitButton from "@/components/SubmitButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { debounce } from "lodash";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function RegisterPage() {
   const searchParams = useSearchParams();
@@ -17,6 +18,8 @@ export default function RegisterPage() {
 
   const [username, setUsername] = useState("");
   const [usernameStatus, setUsernameStatus] = useState<string | null>(null);
+  const [status, setStatus] = useState("");
+  const captchaRef = useRef(null);
 
   const debouncedCheckUsername = useCallback(
     debounce(async (username: string) => {
@@ -106,7 +109,6 @@ export default function RegisterPage() {
               required
             />
           </div>
-
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -134,10 +136,23 @@ export default function RegisterPage() {
               required
             />
           </div>
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            ref={captchaRef}
+            className="mb-6"
+            options={{
+              theme: "dark",
+            }}
+            onError={() => setStatus("error")}
+            onExpire={() => setStatus("expired")}
+            onSuccess={() => setStatus("solved")}
+          />
           <SubmitButton
             pendingText="Signing Up..."
             className="w-full"
-            disabled={usernameStatus !== "Username is available"}
+            disabled={
+              usernameStatus !== "Username is available" || status !== "solved"
+            }
           >
             Register
           </SubmitButton>
