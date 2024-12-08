@@ -17,13 +17,16 @@ export default async function UserProfile({
 }) {
   const { username } = await params;
   const supabase = await createClient();
+
+  const {
+    data: { user: session },
+  } = await supabase.auth.getUser();
+
   const { data: user, error: userError } = await supabase
     .from("profiles")
     .select("id,username,full_name,avatar_url,bio")
     .eq("username", username)
     .single();
-
-  console.log(user, userError);
 
   if (userError) {
     notFound();
@@ -62,12 +65,14 @@ export default async function UserProfile({
                 <span className="font-bold">{posts?.length || 0}</span> posts
               </div>
             </div>
-            <Link href={`/settings`}>
-              <Button variant="default">
-                <CogIcon className="h-4 w-4 mr-2" />
-                settings
-              </Button>
-            </Link>
+            {session?.id === user.id && (
+              <Link href={`/settings`}>
+                <Button variant="default">
+                  <CogIcon className="h-4 w-4 mr-2" />
+                  settings
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
 
