@@ -1,0 +1,346 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage renders homepage unchanged 1`] = `
+<div>
+  <div
+    class="flex min-h-screen flex-col"
+  >
+    <header
+      class="container z-40 bg-background"
+    >
+      <div
+        class="flex h-20 items-center justify-between py-6"
+      >
+        <div
+          class="flex gap-6 md:gap-10"
+        >
+          <a
+            class="flex items-center space-x-2"
+            href="/"
+          >
+            <span
+              class="inline-block font-bold"
+            >
+              SurgeLink
+            </span>
+          </a>
+        </div>
+        <nav>
+          <a
+            href="/login"
+          >
+            <button
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2"
+            >
+              Log in
+            </button>
+          </a>
+          <a
+            href="/register"
+          >
+            <button
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+            >
+              Sign up
+            </button>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <main
+      class="flex-1"
+    >
+      <section
+        class="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32"
+      >
+        <div
+          class="container flex max-w-[64rem] flex-col items-center gap-4 text-center"
+        >
+          <h1
+            class="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl"
+          >
+            Connect, Share, Surge
+          </h1>
+          <p
+            class="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8"
+          >
+            Join SurgeLink and experience a new wave of social networking. Share your moments, connect with friends, and discover exciting content.
+          </p>
+          <div
+            class="space-x-4"
+          >
+            <a
+              href="/register"
+            >
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8"
+              >
+                Get Started
+              </button>
+            </a>
+            <a
+              href="#features"
+            >
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 rounded-md px-8"
+              >
+                Learn More
+              </button>
+            </a>
+          </div>
+        </div>
+      </section>
+      <section
+        class="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24"
+        id="features"
+      >
+        <div
+          class="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center"
+        >
+          <h2
+            class="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl"
+          >
+            Features
+          </h2>
+          <p
+            class="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7"
+          >
+            Discover what makes SurgeLink the next big thing in social networking.
+          </p>
+        </div>
+        <div
+          class="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3"
+        >
+          <div
+            class="relative overflow-hidden rounded-lg border bg-background p-2"
+          >
+            <div
+              class="flex h-[180px] flex-col justify-between rounded-md p-6"
+            >
+              <svg
+                class="lucide lucide-heart h-12 w-12 fill-primary"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                />
+              </svg>
+              <div
+                class="space-y-2"
+              >
+                <h3
+                  class="font-bold"
+                >
+                  Engage
+                </h3>
+                <p
+                  class="text-sm text-muted-foreground"
+                >
+                  Like and interact with content you love.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="relative overflow-hidden rounded-lg border bg-background p-2"
+          >
+            <div
+              class="flex h-[180px] flex-col justify-between rounded-md p-6"
+            >
+              <svg
+                class="lucide lucide-share2 h-12 w-12 fill-primary"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="18"
+                  cy="5"
+                  r="3"
+                />
+                <circle
+                  cx="6"
+                  cy="12"
+                  r="3"
+                />
+                <circle
+                  cx="18"
+                  cy="19"
+                  r="3"
+                />
+                <line
+                  x1="8.59"
+                  x2="15.42"
+                  y1="13.51"
+                  y2="17.49"
+                />
+                <line
+                  x1="15.41"
+                  x2="8.59"
+                  y1="6.51"
+                  y2="10.49"
+                />
+              </svg>
+              <div
+                class="space-y-2"
+              >
+                <h3
+                  class="font-bold"
+                >
+                  Share
+                </h3>
+                <p
+                  class="text-sm text-muted-foreground"
+                >
+                  Share your favorite moments and discoveries.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="relative overflow-hidden rounded-lg border bg-background p-2"
+          >
+            <div
+              class="flex h-[180px] flex-col justify-between rounded-md p-6"
+            >
+              <svg
+                class="lucide lucide-users h-12 w-12 fill-primary"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M22 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+              <div
+                class="space-y-2"
+              >
+                <h3
+                  class="font-bold"
+                >
+                  Grow
+                </h3>
+                <p
+                  class="text-sm text-muted-foreground"
+                >
+                  Build your network and grow your audience.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="container space-y-6 py-8 md:py-12 lg:py-24"
+        id="cta"
+      >
+        <div
+          class="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center"
+        >
+          <h2
+            class="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl"
+          >
+            Ready to Surge?
+          </h2>
+          <p
+            class="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7"
+          >
+            Join SurgeLink today and start your journey in a new era of social networking.
+          </p>
+          <div
+            class="flex flex-col gap-4 min-[400px]:flex-row"
+          >
+            <a
+              href="/register"
+            >
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 rounded-md px-8"
+              >
+                Sign Up Now
+              </button>
+            </a>
+            <a
+              href="/login"
+            >
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 rounded-md px-8"
+              >
+                Log In
+              </button>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer
+      class="container"
+    >
+      <div
+        class="flex flex-col items-center justify-between gap-4 border-t py-10 md:h-24 md:flex-row md:py-0"
+      >
+        <div
+          class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0"
+        >
+          <p
+            class="text-center text-sm leading-loose text-muted-foreground md:text-left"
+          >
+            Built by
+             
+            <a
+              class="text-primary hover:underline"
+              href="https://supunsathsara.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Supun Sathsara.
+            </a>
+             
+            The source code is available on
+             
+            <a
+              class="text-primary hover:underline"
+              href="https://github.com/supunsathsara/SurgeLink"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              GitHub.
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+`;
