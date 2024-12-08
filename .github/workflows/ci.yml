@@ -1,0 +1,57 @@
+name: CI
+
+# Commented out the push trigger since we are using vercel for deployment
+# on:
+#   push:
+#     branches:
+#       - main
+
+# Add manual trigger
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: supabase
+          POSTGRES_USER: supabase
+          POSTGRES_PASSWORD: supabase
+        options: >-
+          --health-cmd="pg_isready -U supabase"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Supabase CLI
+        run: npm install -g supabase
+
+      - name: Start Supabase
+        run: supabase start
+
+      - name: Apply Supabase migrations
+        run: supabase db push
+
+      - name: Build the application
+        run: npm run build
+
+      - name: Run unit tests
+        run: npm test
