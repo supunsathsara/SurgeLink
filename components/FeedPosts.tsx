@@ -5,6 +5,8 @@ import PostCard from "@/components/PostCard";
 import { Button } from "@/components/ui/button";
 import { Post } from "@/types";
 import { formatDistanceToNow } from "date-fns";
+import PostCardSkeleton from "./PostCardSkeleton";
+import { times } from "lodash";
 
 const FeedPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -33,16 +35,25 @@ const FeedPosts: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      {posts.map((post) => (
-        <PostCard
-          key={post.post_id}
-          likeCount={post.like_count}
-          date={formatDistanceToNow(new Date(post.created_at), { addSuffix: true })}
-          username={post.username}
-          url={post.url}
-        />
-      ))}
-      {loading && <div>Loading...</div>}
+      {loading && (
+        <>
+          {times(3, (index) => (
+            <PostCardSkeleton key={index} />
+          ))}
+        </>
+      )}
+      {!loading &&
+        posts.map((post) => (
+          <PostCard
+            key={post.post_id}
+            likeCount={post.like_count}
+            date={formatDistanceToNow(new Date(post.created_at), {
+              addSuffix: true,
+            })}
+            username={post.username}
+            url={post.url}
+          />
+        ))}
       {!loading && hasMore && (
         <div className="flex justify-center mt-4">
           <Button variant="ghost" size="sm" onClick={handleViewMore}>
