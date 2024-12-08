@@ -4,4 +4,5 @@ export interface Post {
   created_at: string;
   username: string;
   url: string;
+  is_liked_by_user: boolean;
 }

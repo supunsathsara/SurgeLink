@@ -8,6 +8,8 @@ import { formatDistanceToNow } from "date-fns";
 import PostCardSkeleton from "./PostCardSkeleton";
 import { times } from "lodash";
 
+export const dynamic = 'force-dynamic'
+
 const FeedPosts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +23,13 @@ const FeedPosts: React.FC = () => {
       if (data.length === 0) {
         setHasMore(false);
       } else {
-        setPosts((prevPosts) => [...prevPosts, ...data]);
+        setPosts((prevPosts) => {
+          // Filter out any duplicate posts
+          const newPosts = data.filter(
+            (newPost: Post) => !prevPosts.some((post) => post.post_id === newPost.post_id)
+          );
+          return [...prevPosts, ...newPosts];
+        });
       }
       setLoading(false);
     };
@@ -46,12 +54,14 @@ const FeedPosts: React.FC = () => {
         posts.map((post) => (
           <PostCard
             key={post.post_id}
+            postId={post.post_id}
             likeCount={post.like_count}
             date={formatDistanceToNow(new Date(post.created_at), {
               addSuffix: true,
             })}
             username={post.username}
             url={post.url}
+            isLikedByUser={post.is_liked_by_user}
           />
         ))}
       {!loading && hasMore && (

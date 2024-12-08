@@ -12,7 +12,7 @@ export async function GET(req: NextRequest, res: Response) {
 
   const { data, error } = await supabase
     .from("feed_view")
-    .select("post_id, like_count, created_at, username, url")
+    .select("post_id, like_count, created_at, username, url, is_liked_by_user")
     .order("created_at", { ascending: false })
     .order("like_count", { ascending: false })
     .range(offset, offset + Number(limit) - 1);

@@ -16,15 +16,15 @@ const ProfileCard = async () => {
   //console.log(profile, error);
 
   return (
-    <div className="sticky top-8 space-y-4">
-      <div className="flex items-center space-x-4">
-        <Avatar className="h-12 w-12">
+    <div className="sticky top-8 space-y-4 text-center">
+      <div className="flex flex-col items-center space-y-5">
+        <Avatar className="h-24 w-24">
           <AvatarImage src={profile.avatar_url} alt="Profile" />
           <AvatarFallback>
             {profile?.full_name?.split(" ").map((name: string[]) => name[0])}{" "}
           </AvatarFallback>
         </Avatar>
-        <div>
+        <div className="text-lg text-center">
           <h2 className="font-bold">{profile?.full_name || ""}</h2>
           <p className="text-sm text-muted-foreground">
             @{profile?.username || ""}
