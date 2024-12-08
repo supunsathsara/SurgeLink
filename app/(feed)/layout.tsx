@@ -11,18 +11,34 @@ export default function FeedLayout({
 }>) {
   return (
     <>
-      <div className="container mx-auto flex min-h-screen max-w-7xl gap-8 px-4 py-8">
-        {/* Left section with logo */}
-        <div className="hidden w-64 space-y-4 lg:block">
+      <div className="container mx-auto flex flex-col lg:flex-row min-h-screen max-w-7xl gap-8 px-4 py-8">
+        {/* Top section with logo, create post, and profile on mobile */}
+        <div className="flex flex-col lg:hidden space-y-4">
+          <Link href="/" className="text-2xl font-bold">
+            SurgeLink
+          </Link>
+          <CreatePost />
+          <ProfileCard />
+          <form action={signOutAction} className="text-center mt-8">
+            <Button type="submit" variant={"outline"}>
+              Sign out
+            </Button>
+          </form>
+        </div>
+
+        {/* Left section with logo on larger screens */}
+        <div className="hidden lg:block w-64 space-y-4">
           <Link href="/" className="text-2xl font-bold">
             SurgeLink
           </Link>
           <CreatePost />
         </div>
+
+        {/* Main content */}
         <div className="flex-1">{children}</div>
 
-        {/* Right sidebar with profile */}
-        <div className="hidden w-72 lg:block">
+        {/* Right sidebar with profile on larger screens */}
+        <div className="hidden lg:block w-72">
           <ProfileCard />
           <form action={signOutAction} className="text-center mt-8">
             <Button type="submit" variant={"outline"}>
