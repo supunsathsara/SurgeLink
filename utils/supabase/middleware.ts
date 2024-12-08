@@ -42,6 +42,10 @@ export const updateSession = async (request: NextRequest) => {
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
+    if (request.nextUrl.pathname.startsWith("/reset-password") && user.error) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
     if (request.nextUrl.pathname === "/" && !user.error) {
       return NextResponse.redirect(new URL("/feed", request.url));
     }
