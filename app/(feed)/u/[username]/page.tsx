@@ -1,20 +1,19 @@
-import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
 import PostCard from "@/components/PostCard";
-import { Post } from "@/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { createClient } from "@/utils/supabase/server";
-import { notFound } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import ProfileCard from "@/components/ProfileCard";
 import { CogIcon } from "lucide-react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-export default async function UserProfile({
-  params,
-}: {
-  params: { username: string };
-}) {
+interface UserProfileProps {
+  params: Promise<{ username: string }>;
+}
+
+
+export default async function UserProfile({ params }: UserProfileProps) {
   const { username } = await params;
   const supabase = await createClient();
 
