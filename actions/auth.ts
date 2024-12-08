@@ -40,11 +40,7 @@ export const signUpAction = async (formData: FormData) => {
   const origin = (await headers()).get("origin");
 
   if (!email || !password || !name || !phone || !username) {
-    return encodedRedirect(
-      "error",
-      "/sign-up",
-      "All fields are required"
-    );
+    return encodedRedirect("error", "/register", "All fields are required");
   }
 
   try {
@@ -56,7 +52,11 @@ export const signUpAction = async (formData: FormData) => {
       username,
     });
   } catch (error) {
-    return encodedRedirect("error", "/sign-up", (error as z.ZodError).errors[0].message);
+    return encodedRedirect(
+      "error",
+      "/register",
+      (error as z.ZodError).errors[0].message
+    );
   }
 
   const { error } = await supabase.auth.signUp({
@@ -74,7 +74,7 @@ export const signUpAction = async (formData: FormData) => {
 
   if (error) {
     console.error(error.code + " " + error.message);
-    return encodedRedirect("error", "/sign-up", error.message);
+    return encodedRedirect("error", "/register", error.message);
   } else {
     return encodedRedirect(
       "success",
@@ -95,7 +95,7 @@ export const signInAction = async (formData: FormData) => {
   });
 
   if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
+    return encodedRedirect("error", "/login", error.message);
   }
 
   return redirect("/protected");
@@ -144,7 +144,7 @@ export const resetPasswordAction = async (formData: FormData) => {
   if (!password || !confirmPassword) {
     encodedRedirect(
       "error",
-      "/protected/reset-password",
+      "/reset-password",
       "Password and confirm password are required"
     );
   }
@@ -152,7 +152,7 @@ export const resetPasswordAction = async (formData: FormData) => {
   if (password !== confirmPassword) {
     encodedRedirect(
       "error",
-      "/protected/reset-password",
+      "/reset-password",
       "Passwords do not match"
     );
   }
@@ -163,7 +163,11 @@ export const resetPasswordAction = async (formData: FormData) => {
       confirmPassword,
     });
   } catch (error) {
-    return encodedRedirect("error", "/protected/reset-password", (error as z.ZodError).errors[0].message);
+    return encodedRedirect(
+      "error",
+      "/reset-password",
+      (error as z.ZodError).errors[0].message
+    );
   }
 
   const { error } = await supabase.auth.updateUser({
@@ -184,9 +188,8 @@ export const resetPasswordAction = async (formData: FormData) => {
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  return redirect("/sign-in");
+  return redirect("/login");
 };
-
 
 export const checkUsernameAvailability = async (username: string) => {
   const supabase = await createClient();
@@ -197,7 +200,7 @@ export const checkUsernameAvailability = async (username: string) => {
     .eq("username", username)
     .single();
 
-    console.log(data, error)
+  console.log(data, error);
 
   if (error && error.code !== "PGRST116") {
     return { error: "Error checking username availability" };
@@ -208,4 +211,4 @@ export const checkUsernameAvailability = async (username: string) => {
   }
 
   return { message: "Username is available" };
-}
+};

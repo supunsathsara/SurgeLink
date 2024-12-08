@@ -1,5 +1,7 @@
+import { signOutAction } from "@/actions/auth";
 import CreatePost from "@/components/CreatePost";
 import ProfileCard from "@/components/ProfileCard";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function FeedLayout({
@@ -22,6 +24,11 @@ export default function FeedLayout({
         {/* Right sidebar with profile */}
         <div className="hidden w-72 lg:block">
           <ProfileCard />
+          <form action={signOutAction} className="text-center mt-8">
+            <Button type="submit" variant={"outline"}>
+              Sign out
+            </Button>
+          </form>
         </div>
       </div>
     </>
