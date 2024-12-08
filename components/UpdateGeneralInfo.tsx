@@ -15,9 +15,8 @@ import { checkUsernameAvailability } from "@/actions/auth";
 import { Textarea } from "./ui/textarea";
 
 const UpdateGeneralInfo = ({ data }: { data: any }) => {
-  const MAX_FILE_SIZE = 3 * 1024 * 1024; // 5MB
+  const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB
   const [profileImage, setProfileImage] = useState<File | null>(null);
-  const [fileInputValue, setFileInputValue] = useState<string>("");
 
   const initialState = {
     message: "",
@@ -49,7 +48,7 @@ const UpdateGeneralInfo = ({ data }: { data: any }) => {
 
   const debouncedCheckUsername = useCallback(
     debounce(async (username: string) => {
-      //check if it is the users current username
+      // Check if it is the user's current username
       if (username === data.username) {
         setUsernameStatus("Username is available");
         return;
@@ -101,7 +100,7 @@ const UpdateGeneralInfo = ({ data }: { data: any }) => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="username">username</Label>
+            <Label htmlFor="username">Username</Label>
             <Input
               id="username"
               placeholder="@username"
@@ -112,7 +111,11 @@ const UpdateGeneralInfo = ({ data }: { data: any }) => {
             />
             {usernameStatus && (
               <p
-                className={`text-sm ${usernameStatus.includes("available") ? "text-green-600" : "text-red-600"}`}
+                className={`text-sm ${
+                  usernameStatus.includes("available")
+                    ? "text-green-600"
+                    : "text-red-600"
+                }`}
               >
                 {usernameStatus}
               </p>
@@ -129,13 +132,12 @@ const UpdateGeneralInfo = ({ data }: { data: any }) => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="phone">Bio</Label>
+            <Label htmlFor="bio">Bio</Label>
             <Textarea
               id="bio"
               placeholder="Enter a short bio"
               name="bio"
               defaultValue={data.bio}
-              required
             />
           </div>
           <div className="grid gap-2">
@@ -167,7 +169,6 @@ const UpdateGeneralInfo = ({ data }: { data: any }) => {
                   className="mt-2"
                   onClick={() => {
                     setProfileImage(null);
-                    setFileInputValue("");
                   }}
                 >
                   Remove
@@ -180,24 +181,20 @@ const UpdateGeneralInfo = ({ data }: { data: any }) => {
                 accept="image/png, image/gif, image/jpeg"
                 name="profile-picture"
                 className="w-3/4 md:w-1/3 md:ml-5"
-                value={fileInputValue}
                 onChange={(e) => {
                   const file = e.target?.files?.[0];
                   if (file) {
                     if (file.size > MAX_FILE_SIZE) {
-                      alert("File size exceeds the 5MB limit.");
+                      alert("File size exceeds the 3MB limit.");
                       setProfileImage(null);
-                      setFileInputValue("");
                     } else {
                       setProfileImage(file);
-                      setFileInputValue(e.target.value);
                     }
                   }
                 }}
               />
             </div>
           </div>
-          {/* <Button variant="outline">Change</Button> */}
           <SubmitButton variant="outline" pendingText="Updating...">
             Change
           </SubmitButton>
@@ -206,4 +203,5 @@ const UpdateGeneralInfo = ({ data }: { data: any }) => {
     </Card>
   );
 };
+
 export default UpdateGeneralInfo;
