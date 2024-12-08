@@ -1,4 +1,6 @@
+import { Separator } from "@/components/ui/separator";
 import UpdateGeneralInfo from "@/components/UpdateGeneralInfo";
+import UpdateSecurityInfo from "@/components/UpdateSecurityInfo";
 import { createClient } from "@/utils/supabase/server";
 
 const SettingsPage = async () => {
@@ -35,6 +37,8 @@ const SettingsPage = async () => {
       </div>
       <div className="space-y-6 mx-1 pb-12">
         <UpdateGeneralInfo data={{ ...data, email: sessionData.user.email }} />
+        <Separator className="my-4" />
+        <UpdateSecurityInfo data={{ email: sessionData.user.email }} />
       </div>
     </main>
   );
