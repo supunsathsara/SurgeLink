@@ -17,13 +17,16 @@ import { PlusCircle } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { v4 as uuidv4 } from "uuid";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 export default function CreatePost() {
   const { toast } = useToast();
+  const router = useRouter();
   const [image, setImage] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -112,10 +115,15 @@ export default function CreatePost() {
 
     // Reset the image state after submission
     setImage(null);
+
+    // Close the modal
+    setIsOpen(false);
+
+    router.refresh();
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">
           <PlusCircle className="mr-2 h-4 w-4" />
