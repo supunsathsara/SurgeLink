@@ -28,7 +28,7 @@ const PostCard: React.FC<PostProps> = ({ likeCount, date, username, url }) => {
             </Button>
             <span className="text-sm text-muted-foreground">{likeCount} likes</span>
           </div>
-          <Link href={url} className="text-sm font-medium hover:underline">
+          <Link href={`/u/${username}`} className="text-sm font-medium hover:underline">
             {username}
           </Link>
           <span className="text-sm text-muted-foreground">{date}</span>
