@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 
 const ProfileCard = async () => {
   const supabase = await createClient();
@@ -25,10 +26,12 @@ const ProfileCard = async () => {
           </AvatarFallback>
         </Avatar>
         <div className="text-lg text-center">
-          <h2 className="font-bold">{profile?.full_name || ""}</h2>
-          <p className="text-sm text-muted-foreground">
-            @{profile?.username || ""}
-          </p>
+          <Link href={`/u/${profile?.username}`}>
+            <h2 className="font-bold">{profile?.full_name || ""}</h2>
+            <p className="text-sm text-muted-foreground hover:underline">
+              @{profile?.username || ""}
+            </p>
+          </Link>
         </div>
       </div>
     </div>
