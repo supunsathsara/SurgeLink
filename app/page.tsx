@@ -127,7 +127,7 @@ export default function LandingPage() {
             <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
               Built by{" "}
               <a
-                href="http://supunsathsara,com"
+                href="https://supunsathsara.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
